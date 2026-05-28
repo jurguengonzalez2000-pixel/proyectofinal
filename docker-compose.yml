@@ -1,0 +1,17 @@
+
+version: '3'
+
+services:
+
+  admin_service:
+    build: ./admin_service
+    ports:
+      - "5000:5000"
+
+  citas_service:
+    build: ./citas_service
+    ports:
+      - "5001:5001"
+
+    depends_on:
+      - admin_service
