@@ -1,5 +1,4 @@
 from flask import Flask
-from flask import Flask
 from app.extensions import db, jwt
 
 def create_app():

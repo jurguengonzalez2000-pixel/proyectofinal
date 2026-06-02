@@ -14,4 +14,4 @@ class Cita(db.Model):
     id_doctor = db.Column(db.Integer)
     id_centro = db.Column(db.Integer)
 
-    id_usuario_registra = db.Column(db.Integer)
+    id_usuario_registro = db.Column(db.Integer)

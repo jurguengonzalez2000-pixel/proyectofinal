@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
+from app.models.usuario import Usuario
 
-auth_bp = Blueprint('auth_bp',__name__)
-
+auth_bp = Blueprint('auth_bp', __name__)
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
@@ -12,19 +12,28 @@ def login():
     username = data.get('username')
     password = data.get('password')
 
-    if username == 'admin' and password == '1234':
+    usuario = Usuario.query.filter_by(
+        username=username
+    ).first()
 
-        token = create_access_token(
-            identity=username,
-            additional_claims={"rol": "admin"}
-
-        )
-
+    if not usuario:
         return jsonify({
-            'access_token': token
-        }), 200
+            "error": "Usuario no existe"
+        }), 401
+
+    if usuario.password != password:
+        return jsonify({
+            "error": "Contraseña incorrecta"
+        }), 401
+
+    token = create_access_token(
+        identity=str(usuario.id_usuario),
+        additional_claims={
+            "rol": usuario.rol
+        }
+    )
 
     return jsonify({
-        'error': 'Credenciales incorrectas'
-    }), 401
-    
+        "access_token": token,
+        "rol": usuario.rol
+    }), 200

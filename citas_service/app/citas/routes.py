@@ -21,11 +21,11 @@ def crear_cita():
     cita = Cita(
         fecha=data["fecha"],
         motivo=data["motivo"],
-        estado = "activo",
+        estado = "activa",
         id_paciente=data["id_paciente"],
         id_doctor=data["id_doctor"],
         id_centro=data["id_centro"],
-        id_usuario_regristrado=data["id_usuario_registrado"]
+        id_usuario_registro=data["id_usuario_registro"]
     )
     
     db.session.add(cita)

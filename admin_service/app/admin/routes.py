@@ -120,4 +120,52 @@ def lista_centro():
         })       
     return jsonify(resultado)
 
- 
+@admin_bp.route("/doctores/<int:id_doctor>", methods=["GET"])
+def obtener_doctor(id_doctor):
+
+    doctor = Doctor.query.get(id_doctor)
+
+    if not doctor:
+        return jsonify({
+            "error": "Doctor no existe"
+        }), 404
+
+    return jsonify({
+        "id_doctor": doctor.id_doctor,
+        "nombre": doctor.nombre,
+        "especialidad": doctor.especialidad
+    })
+
+
+@admin_bp.route("/pacientes/<int:id_paciente>", methods=["GET"])
+def obtener_paciente(id_paciente):
+
+    paciente = Pacientes.query.get(id_paciente)
+
+    if not paciente:
+        return jsonify({
+            "error": "Paciente no existe"
+        }), 404
+
+    return jsonify({
+        "id_pacientes": paciente.id_pacientes,
+        "nombre": paciente.nombre,
+        "telefono": paciente.telefono,
+        "estado": paciente.estado
+    })
+    
+@admin_bp.route("/centros/<int:id_centro>", methods=["GET"])
+def obtener_centro(id_centro):
+
+    centro = Centro.query.get(id_centro)
+
+    if not centro:
+        return jsonify({
+            "error": "Centro no existe"
+        }), 404
+
+    return jsonify({
+        "id_centro": centro.id_centro,
+        "nombre": centro.nombre,
+        "direccion": centro.direccion
+    })
